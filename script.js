@@ -31,8 +31,8 @@ let scoreComputer = 0;
 let scorePlayer = 0;
 
 const playerWin = "You Win!!!"
-const PlayerLose = "You Loose!!!"
-const PlayerTie = "You Tie!!!"
+const playerLose = "You Loose!!!"
+const playerTie = "You Tie!!!"
 
 function playRound (playerSelection, computerSelection) {
     
@@ -43,13 +43,13 @@ function playRound (playerSelection, computerSelection) {
 
     if ((playerSelection === "rock" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "paper")) {
 
-        return PlayerTie;
+        return playerTie;
     }
 
     if ((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock") ) {
         
         scoreComputer += 1;
-        return PlayerLose;
+        return playerLose;
     }
 
     if ((playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper") || (playerSelection === "rock" && computerSelection === "scissors") ) {
@@ -61,13 +61,31 @@ function playRound (playerSelection, computerSelection) {
 
 }
 
-const playerSelection = prompt("Would you like to choose Rock, Paper, or Scissors?").toLowerCase();
-console.log(playerSelection);
-const computerSelection = getComputerChoice();
-console.log(computerSelection);
-console.log(playRound(playerSelection, computerSelection));
+
+
+
+// console.log(playRound(playerSelection, computerSelection));
 
 // Function called 'playGame()' which includes the previous functions
 // Game will be played 5 times, can be in a loop or called 5 times
+
+function playGame() {
+
+    for (let i = 0 ; i < 5; i++) {
+
+        let playerSelection = prompt("Would you like to choose Rock, Paper, or Scissors?").toLowerCase();
+        let computerSelection = getComputerChoice();
+
+        console.log(playerSelection);
+        console.log(computerSelection);
+        
+        console.log(playRound(playerSelection, computerSelection));
+
+    }
+    return `final score is: Computer ${scoreComputer} and Player ${scorePlayer}`;
+
+}
+
+console.log(playGame());
 
 
