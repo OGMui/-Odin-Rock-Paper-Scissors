@@ -62,7 +62,11 @@ function playRound (playerSelection, computerSelection) {
 }
 
 
+const rockBtn = document.getElementById("rock-btn");
+const paperBtn = document.getElementById("paper-btn");
+const scissorsBtn = document.getElementById("scissors-btn");
 
+const resultsDiv = document.getElementById("results");
 
 // console.log(playRound(playerSelection, computerSelection));
 
