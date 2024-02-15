@@ -1,5 +1,31 @@
+const playerWin = "You Win!!!"
+const playerLose = "You Lose!!!"
+const playerTie = "You Tie!!!"
 
-// Return random 'Rock', 'Paper' or 'Scissors'
+const rockBtn = document.getElementById("rock-btn");
+const paperBtn = document.getElementById("paper-btn");
+const scissorsBtn = document.getElementById("scissors-btn");
+
+const resultsDiv = document.getElementById("results");
+const computerScoreText = document.getElementById("computer-score");
+const playerScoreText = document.getElementById("player-score");
+
+const score = document.querySelectorAll(".score");
+
+
+let scoreComputer = 0;
+let scorePlayer = 0;
+
+
+playerScoreText.innerText = scorePlayer;
+computerScoreText.innerText = scoreComputer;
+
+rockBtn.addEventListener("click", () => playGame("rock"));
+
+paperBtn.addEventListener("click", () => playGame("paper"));
+
+scissorsBtn.addEventListener("click", () => playGame("scissors"));
+
 
 function getComputerChoice (){
 
@@ -22,17 +48,6 @@ function getComputerChoice (){
 }
 
 
-// Function to play single round of Rock, Paper Scissors
-// Takes 2 parameters 'playerSelection' and 'computerSelection
-// playerSelection must be case-insensitive
-// playerSelection comes from prompt()
-// returns a string that declares the winner or tie
-let scoreComputer = 0;
-let scorePlayer = 0;
-
-const playerWin = "You Win!!!"
-const playerLose = "You Loose!!!"
-const playerTie = "You Tie!!!"
 
 function playRound (playerSelection, computerSelection) {
     
@@ -41,55 +56,70 @@ function playRound (playerSelection, computerSelection) {
     // Rock beats Scissors
     // Scissors beats Paper
 
+
     if ((playerSelection === "rock" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "paper")) {
 
-        return playerTie;
+        return playerTie + " this round";
     }
 
     if ((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock") ) {
         
         scoreComputer += 1;
-        return playerLose;
+        return (scoreComputer === 5) ? announceWinner("Computer") :  playerLose + " this round";
     }
 
     if ((playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper") || (playerSelection === "rock" && computerSelection === "scissors") ) {
         
         scorePlayer += 1;
-        return playerWin;
-    }
+        return (scorePlayer === 5) ? announceWinner("Player") : playerWin + " this round";
+}
+}
+function resetScore() {
+    scoreComputer = 0;
+    scorePlayer = 0;
+}
 
+function announceWinner(message) {
+    
+    resetScore();
+    return message + " has won the game!";
 
 }
 
+function updateScore() {
+    if (scoreComputer === 0 && scorePlayer === 0){
+        score.forEach(score => {
+            score.style.display = "none";
+        });
 
-const rockBtn = document.getElementById("rock-btn");
-const paperBtn = document.getElementById("paper-btn");
-const scissorsBtn = document.getElementById("scissors-btn");
-
-const resultsDiv = document.getElementById("results");
-
-// console.log(playRound(playerSelection, computerSelection));
-
-// Function called 'playGame()' which includes the previous functions
-// Game will be played 5 times, can be in a loop or called 5 times
-
-function playGame() {
-
-    for (let i = 0 ; i < 5; i++) {
-
-        let playerSelection = prompt("Would you like to choose Rock, Paper, or Scissors?").toLowerCase();
-        let computerSelection = getComputerChoice();
-
-        console.log(playerSelection);
-        console.log(computerSelection);
-        
-        console.log(playRound(playerSelection, computerSelection));
-
+    } else {
+        score.forEach(score => {
+            score.style.display = "inherit";
+        });
+        playerScoreText.innerText = scorePlayer;
+        computerScoreText.innerText = scoreComputer;
     }
-    return `final score is: Computer ${scoreComputer} and Player ${scorePlayer}`;
-
 }
 
-console.log(playGame());
 
 
+
+
+function playGame(playerSelection) {
+
+
+    console.log(playerSelection);
+    const computerSelection = getComputerChoice();
+    console.log(computerSelection);
+    
+    resultsDiv.innerText =  playRound(playerSelection, computerSelection);
+    console.log(scoreComputer, scorePlayer);
+
+    updateScore();
+   
+   
+    
+}
+
+
+playGame();
