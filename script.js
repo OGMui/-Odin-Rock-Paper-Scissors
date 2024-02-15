@@ -12,6 +12,8 @@ const playerScoreText = document.getElementById("player-score");
 
 const score = document.querySelectorAll(".score");
 
+resultsDiv.innerText = "Are You ready to play?";
+
 
 let scoreComputer = 0;
 let scorePlayer = 0;
@@ -77,6 +79,9 @@ function playRound (playerSelection, computerSelection) {
 function resetScore() {
     scoreComputer = 0;
     scorePlayer = 0;
+    score.forEach(score => {
+        score.style.display = "none";
+    });
 }
 
 function announceWinner(message) {
@@ -87,17 +92,13 @@ function announceWinner(message) {
 }
 
 function updateScore() {
-    if (scoreComputer === 0 && scorePlayer === 0){
-        score.forEach(score => {
-            score.style.display = "none";
-        });
-
-    } else {
+    if (scoreComputer > 0 || scorePlayer > 0){
         score.forEach(score => {
             score.style.display = "inherit";
+            playerScoreText.innerText = scorePlayer;
+            computerScoreText.innerText = scoreComputer;
         });
-        playerScoreText.innerText = scorePlayer;
-        computerScoreText.innerText = scoreComputer;
+
     }
 }
 
@@ -107,12 +108,11 @@ function updateScore() {
 
 function playGame(playerSelection) {
 
-
     console.log(playerSelection);
     const computerSelection = getComputerChoice();
     console.log(computerSelection);
     
-    resultsDiv.innerText =  playRound(playerSelection, computerSelection);
+    resultsDiv.innerText = playRound(playerSelection, computerSelection);
     console.log(scoreComputer, scorePlayer);
 
     updateScore();
@@ -122,4 +122,3 @@ function playGame(playerSelection) {
 }
 
 
-playGame();
