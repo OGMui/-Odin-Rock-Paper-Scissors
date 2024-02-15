@@ -1,6 +1,6 @@
-const playerWin = "You Win!!!"
-const playerLose = "You Lose!!!"
-const playerTie = "You Tie!!!"
+const playerWin = "Congratulations you won this round!";
+const playerLose = "Better luck next time, you lost this round.";
+const playerTie = "This round was a tie.";
 
 const rockBtn = document.getElementById("rock-btn");
 const paperBtn = document.getElementById("paper-btn");
@@ -12,7 +12,7 @@ const playerScoreText = document.getElementById("player-score");
 
 const score = document.querySelectorAll(".score");
 
-resultsDiv.innerText = "Are You ready to play?";
+resultsDiv.innerText = "Are you ready to play?";
 
 
 let scoreComputer = 0;
@@ -61,19 +61,19 @@ function playRound (playerSelection, computerSelection) {
 
     if ((playerSelection === "rock" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "scissors") || (playerSelection === "paper" && computerSelection === "paper")) {
 
-        return playerTie + " this round";
+        return playerTie;
     }
 
     if ((playerSelection === "rock" && computerSelection === "paper") || (playerSelection === "paper" && computerSelection === "scissors") || (playerSelection === "scissors" && computerSelection === "rock") ) {
         
         scoreComputer += 1;
-        return (scoreComputer === 5) ? announceWinner("Computer") :  playerLose + " this round";
+        return (scoreComputer === 5) ? announceWinner("Sorry! Computer") :  playerLose;
     }
 
     if ((playerSelection === "paper" && computerSelection === "rock") || (playerSelection === "scissors" && computerSelection === "paper") || (playerSelection === "rock" && computerSelection === "scissors") ) {
         
         scorePlayer += 1;
-        return (scorePlayer === 5) ? announceWinner("Player") : playerWin + " this round";
+        return (scorePlayer === 5) ? announceWinner("Congratulations! Player") : playerWin;
 }
 }
 function resetScore() {
